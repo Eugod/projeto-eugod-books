@@ -8,12 +8,26 @@ async function buscaEndereco(cep){
             throw new Error('CEP inválido!');
         }
 
-        console.log(CEPjson);
+        const endereco = document.getElementById('endereco');
+        const bairro = document.getElementById('bairro');
+        const cidade = document.getElementById('cidade');
+        const estado = document.getElementById('estado');
+
+        endereco.value = CEPjson.logradouro;
+        bairro.value = CEPjson.bairro;
+        cidade.value = CEPjson.localidade;
+        estado.value = CEPjson.uf;
 
         return CEPjson;
     } catch(erro) {
         erro.message = 'CEP inválido!';
 
-        console.log(erro);
+        console.error(erro);
+        
+        alert('CEP inválido!');
     }
 }
+
+const cep = document.getElementById('cep');
+
+cep.addEventListener('focusout', () => buscaEndereco(cep.value));
